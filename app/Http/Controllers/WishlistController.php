@@ -22,10 +22,20 @@ class WishlistController extends Controller
             $wishlist->user_id = $user->id;
             $wishlist->product_id = $productId;
             $wishlist->save();
+
+            return response()->json([
+                'success'=>true,
+                'message' => 'Product added to wishlist',
+                'wishlist' => $wishlist
+            ]);
         }
-        return response()->json([
-            'message' => 'Product added to wishlist'
-        ]);
+        else{
+            return response()->json([
+                'error'=>true,
+                'message' => 'Already you added this product in your wishlist'
+            ]);
+        }
+        
     }
 
     function removeFromWishList(Request $request, $productId)

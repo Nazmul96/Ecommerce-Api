@@ -22,23 +22,24 @@ class OrderController extends Controller
     }
 
     function getUserOrders(){
+
         $user = auth()->user();
         $orders = $user->orders()->with('products')->get();
-        $orders->map(function($order){
-            $order->products->map(function($product){
-                unset($product->description);
-                unset($product->category);
-                unset($product->image);
-                unset($product->rating);
-                unset($product->rating_count);
-                // unset($product->created_at);
-                // unset($product->updated_at);
-                unset($product->pivot->order_id);
-                unset($product->pivot->product_id);
-                return $product;
-            });
-        });
         return $orders;
+        // $orders->map(function($order){
+        //     $order->products->map(function($product){
+        //         unset($product->description);
+        //         unset($product->category);
+        //         unset($product->image);
+        //         unset($product->rating);
+        //         unset($product->rating_count);
+        //         // unset($product->created_at);
+        //         // unset($product->updated_at);
+        //         unset($product->pivot->order_id);
+        //         unset($product->pivot->product_id);
+        //         return $product;
+        //     });
+        // });
     }
 
     function getOrderDetails($id, Request $request){
